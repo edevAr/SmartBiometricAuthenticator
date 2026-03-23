@@ -1,12 +1,14 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { CreateContactUseCase } from '@application/contacts/use-cases/create-contact.usecase';
 import { ContactRelationship } from '@domain/contacts/contact.entity';
-import { ContactRepositoryPort } from '@application/contacts/ports/contact.repository';
+import type { ContactRepositoryPort } from '@application/contacts/ports/contact.repository';
+import { Public } from '../common/public.decorator';
 import { CreateContactDto } from './dto/create-contact.dto';
 
 // MVP: adminId fijo hasta tener auth
 const HARDCODED_ADMIN_ID = '00000000-0000-0000-0000-000000000001';
 
+@Public()
 @Controller('contacts')
 export class ContactsController {
   constructor(

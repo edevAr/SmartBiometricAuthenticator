@@ -8,14 +8,16 @@ import {
 
 export class RegisterCameraDto {
   @IsString()
-  @IsNotEmpty()
-  name!: string;
+  @IsOptional()
+  name?: string;
 
   @IsIP()
   ipAddress!: string;
 
+  /** Puerto HTTP para snapshot / interfaz web (por defecto 80). */
   @IsPort()
-  port!: string;
+  @IsOptional()
+  port?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -25,9 +27,10 @@ export class RegisterCameraDto {
   @IsNotEmpty()
   password!: string;
 
+  /** Ruta RTSP por defecto si no se envía (p. ej. integración futura con ffmpeg). */
   @IsString()
-  @IsNotEmpty()
-  rtspPath!: string;
+  @IsOptional()
+  rtspPath?: string;
 
   @IsString()
   @IsOptional()

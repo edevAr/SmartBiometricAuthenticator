@@ -4,6 +4,10 @@ export enum EventType {
   KNOWN_VISITOR = 'KNOWN_VISITOR',
   UNKNOWN_VISITOR = 'UNKNOWN_VISITOR',
   INTRUDER_ALERT = 'INTRUDER_ALERT',
+  /** Cambio visual entre fotogramas (proxy de movimiento en escena). */
+  MOTION_DETECTED = 'MOTION_DETECTED',
+  /** Cambio visual fuerte (heurística; no es detección ML de persona). */
+  PERSON_DETECTED = 'PERSON_DETECTED',
 }
 
 export interface EventProps {

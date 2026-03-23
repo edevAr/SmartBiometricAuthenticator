@@ -1,9 +1,11 @@
 import { Controller, Get, Query } from '@nestjs/common';
 import { ListLatestEventsUseCase } from '@application/events/use-cases/list-latest-events.usecase';
+import { Public } from '../common/public.decorator';
 
 // MVP: adminId fijo hasta tener auth
 const HARDCODED_ADMIN_ID = '00000000-0000-0000-0000-000000000001';
 
+@Public()
 @Controller('events')
 export class EventsController {
   constructor(

@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { Contact, ContactRelationship } from '@domain/contacts/contact.entity';
-import { ContactRepositoryPort } from '@application/contacts/ports/contact.repository';
+import type { ContactRepositoryPort } from '@application/contacts/ports/contact.repository';
 
 export interface CreateContactCommand {
   adminId: string;
@@ -13,7 +13,10 @@ export interface CreateContactCommand {
 
 @Injectable()
 export class CreateContactUseCase {
-  constructor(private readonly contactRepository: ContactRepositoryPort) {}
+  constructor(
+    @Inject('ContactRepositoryPort')
+    private readonly contactRepository: ContactRepositoryPort,
+  ) {}
 
   async execute(command: CreateContactCommand): Promise<Contact> {
     const contact = Contact.createNew({

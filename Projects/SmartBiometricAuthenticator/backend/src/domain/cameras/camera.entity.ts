@@ -116,6 +116,54 @@ export class Camera extends EntityBase<string> {
     this.touch();
   }
 
+  /** Actualiza credenciales y datos de conexión (campos presentes en el patch). */
+  patchConnection(patch: {
+    name?: string;
+    ipAddress?: string;
+    port?: number;
+    username?: string;
+    passwordEncrypted?: string;
+    rtspPath?: string;
+    location?: string | null;
+  }): void {
+    let changed = false;
+    if (patch.name !== undefined) {
+      this.props.name = patch.name;
+      changed = true;
+    }
+    if (patch.ipAddress !== undefined) {
+      this.props.ipAddress = patch.ipAddress;
+      changed = true;
+    }
+    if (patch.port !== undefined) {
+      this.props.port = patch.port;
+      changed = true;
+    }
+    if (patch.username !== undefined) {
+      this.props.username = patch.username;
+      changed = true;
+    }
+    if (patch.passwordEncrypted !== undefined) {
+      this.props.passwordEncrypted = patch.passwordEncrypted;
+      changed = true;
+    }
+    if (patch.rtspPath !== undefined) {
+      this.props.rtspPath = patch.rtspPath;
+      changed = true;
+    }
+    if (patch.location !== undefined) {
+      this.props.location = patch.location;
+      changed = true;
+    }
+    if (changed) this.touch();
+  }
+
+  setActive(active: boolean): void {
+    if (this.props.isActive === active) return;
+    this.props.isActive = active;
+    this.touch();
+  }
+
   private touch(): void {
     this.props.updatedAt = new Date();
   }

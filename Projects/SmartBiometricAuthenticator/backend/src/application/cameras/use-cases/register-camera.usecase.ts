@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { Camera } from '@domain/cameras/camera.entity';
-import { CameraRepositoryPort } from '@application/cameras/ports/camera.repository';
+import type { CameraRepositoryPort } from '@application/cameras/ports/camera.repository';
 
 export interface RegisterCameraCommand {
   adminId: string;
@@ -16,7 +16,10 @@ export interface RegisterCameraCommand {
 
 @Injectable()
 export class RegisterCameraUseCase {
-  constructor(private readonly cameraRepository: CameraRepositoryPort) {}
+  constructor(
+    @Inject('CameraRepositoryPort')
+    private readonly cameraRepository: CameraRepositoryPort,
+  ) {}
 
   // MVP: simulamos "cifrado" con base64; en fases siguientes usaremos KMS/real crypto.
   private encryptPassword(plain: string): string {
